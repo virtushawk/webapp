@@ -41,6 +41,14 @@ export function createPoll(pollData) {
     });
 }
 
+export function createBook(bookData) {
+    return request({
+        url: API_BASE_URL + "/books",
+        method: 'POST',
+        body: JSON.stringify(bookData)  
+    });
+}
+
 export function castVote(voteData) {
     return request({
         url: API_BASE_URL + "/polls/" + voteData.pollId + "/votes",
