@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PollList from '../../poll/PollList';
 import { getUserProfile } from '../../util/APIUtils';
 import { Avatar, Tabs } from 'antd';
 import { getAvatarColor } from '../../util/Colors';
@@ -8,6 +7,7 @@ import LoadingIndicator  from '../../common/LoadingIndicator';
 import './Profile.css';
 import NotFound from '../../common/NotFound';
 import ServerError from '../../common/ServerError';
+import BookList from '../../book/BookList';
 
 const TabPane = Tabs.TabPane;
 
@@ -94,17 +94,14 @@ class Profile extends Component {
                                     </div>
                                 </div>
                             </div>
-                            <div className="user-poll-details">    
+                            <div className="user-book-details">    
                                 <Tabs defaultActiveKey="1" 
                                     animated={false}
                                     tabBarStyle={tabBarStyle}
                                     size="large"
                                     className="profile-tabs">
-                                    <TabPane tab={`${this.state.user.pollCount} Polls`} key="1">
-                                        <PollList username={this.props.match.params.username} type="USER_CREATED_POLLS" />
-                                    </TabPane>
-                                    <TabPane tab={`${this.state.user.voteCount} Votes`}  key="2">
-                                        <PollList username={this.props.match.params.username} type="USER_VOTED_POLLS" />
+                                    <TabPane tab="Books" key="1">
+                                        <BookList username={this.props.match.params.username} type="USER_CREATED_BOOKS" />
                                     </TabPane>
                                 </Tabs>
                             </div>  

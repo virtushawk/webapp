@@ -4,9 +4,9 @@ import {
     withRouter
 } from 'react-router-dom';
 import './AppHeader.css';
-import pollIcon from '../poll.svg';
 import bookIcon from '../books.svg';
 import { Layout, Menu, Dropdown, Icon } from 'antd';
+import { ReactiveBase, DataSearch } from '@appbaseio/reactivesearch';
 const Header = Layout.Header;
     
 class AppHeader extends Component {
@@ -25,16 +25,24 @@ class AppHeader extends Component {
         let menuItems;
         if(this.props.currentUser) {
           menuItems = [
+            <Menu.Item >
+            <ReactiveBase app="webapp" credentials="Hes5fSFB7:8d6c81cb-b562-4667-89ea-c37b2288275d" >
+            <DataSearch            
+              componentId="mainSearch"            
+               dataField={["TITLE.search"]}                      
+               className="search-bar"            
+               queryFormat="and"            
+               placeholder="Search for books..." 
+             >
+            </DataSearch>
+            
+         </ReactiveBase>
+         </Menu.Item>,
             <Menu.Item key="/">
               <Link to="/">
                 <Icon type="home" className="nav-icon" />
               </Link>
             </Menu.Item>,
-            <Menu.Item key="/poll/new">
-            <Link to="/poll/new">
-              <img src={pollIcon} alt="poll" className="poll-icon" />
-            </Link>
-          </Menu.Item>,
           <Menu.Item key="/book/new">
           <Link to="/book/new">
             <img src={bookIcon} alt="book" className="book-icon" />
@@ -60,7 +68,7 @@ class AppHeader extends Component {
         return (
             <Header className="app-header">
             <div className="container">
-              <div className="app-title" >
+              <div className="app-title">
                 <Link to="/">Web App</Link>
               </div>
               <Menu

@@ -16,33 +16,10 @@
 }
 
 
-.dynamic-delete-button {
-    cursor: pointer;
-    position: relative;
-    top: 4px;
-    font-size: 24px;
-    color: #999;
-    transition: all .3s;
-}
-
-.optional-choice {
-    width: calc(100% - 35px);
-    margin-right: 8px;
-}
-
-.dynamic-delete-button:hover {
-    color: #777;
-}
-
-.dynamic-delete-button[disabled] {
-    cursor: not-allowed;
-    opacity: 0.5;
-}
-
-.poll-form-row {
+.book-form-row {
     margin-bottom: 20px;
 }
 
-.poll-form-row input, .poll-form-row textarea {
+.book-form-row input, .book-form-row textarea {
     margin-bottom: 4px;
 }

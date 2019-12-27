@@ -154,8 +154,6 @@ class Signup extends Component {
         );
     }
 
-    // Validation Functions
-
     validateName = (name) => {
         if(name.length < NAME_MIN_LENGTH) {
             return {
@@ -224,7 +222,6 @@ class Signup extends Component {
     }
 
     validateUsernameAvailability() {
-        // First check for client side errors in username
         const usernameValue = this.state.username.value;
         const usernameValidation = this.validateUsername(usernameValue);
 
@@ -320,7 +317,6 @@ class Signup extends Component {
                 });
             }
         }).catch(error => {
-            // Marking validateStatus as success, Form will be recchecked at server
             this.setState({
                 email: {
                     value: emailValue,

@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { createBook } from '../util/APIUtils';
-import { POLL_QUESTION_MAX_LENGTH} from '../constants';
 import './NewBook.css';  
 import { Form, Input, Button, notification } from 'antd';
-import { FilePond, registerPlugin,File } from "react-filepond";
+import { FilePond, registerPlugin } from "react-filepond";
 import FilePondPluginImagePreview from "filepond-plugin-image-preview";
 import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css";
 import "filepond/dist/filepond.min.css";
@@ -53,7 +52,6 @@ class NewBook extends Component {
       }
 
       handleProcessing(fieldName, file, metadata, load, error, progress, abort) {
-        // handle file upload here
 
         console.log(" handle file upload here");
         console.log(this.storageRef.child(file.name).fullPath);
@@ -66,26 +64,23 @@ class NewBook extends Component {
         task.on(`state_changed` , (snapshot) => {
             console.log(snapshot.bytesTransferred, snapshot.totalBytes)
             let percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-            //Process
             this.setState({
                 uploadValue:percentage
             })
         } , (error) => {
-            //Error
+            
             this.setState({
                 messag:`Upload error : ${error.message}`
             })
         } , () => {
-            //Success
+          
             this.setState({
                 messag:`Upload Success`,
                 Image: task.snapshot.downloadURL,
             })
            
 
-            let downloadURL = ''
             this.storageRef.child(file.name).getMetadata().then((metadata) => {
-                // Metadata now contains the metadata for 'filepond/${file.name}'
                 this.storageRef.child(file.name).getDownloadURL().then( url =>{
                   console.log(url);
                   URL = url;
@@ -133,10 +128,10 @@ class NewBook extends Component {
                 validateStatus: 'error',
                 errorMsg: 'Please enter your Title!'
             }
-        } else if (TitleText.length > POLL_QUESTION_MAX_LENGTH) {
+        } else if (TitleText.length > 25) {
             return {
                 validateStatus: 'error',
-                errorMsg: `Title is too long (Maximum ${POLL_QUESTION_MAX_LENGTH} characters allowed)`
+                errorMsg: `Title is too long (Maximum 25 characters allowed)`
             }    
         } else {
             return {
@@ -180,12 +175,12 @@ class NewBook extends Component {
 
 
         return (
-            <div className="new-poll-container">
+            <div className="new-book-container">
                 <h1 className="page-title">Create Book</h1>
-                <div className="new-poll-content">
-                    <Form onSubmit={this.handleSubmit} className="create-poll-form">
+                <div className="new-book-content">
+                    <Form onSubmit={this.handleSubmit} className="create-book-form">
                         <FormItem validateStatus={this.state.Title.validateStatus}
-                            help={this.state.Title.errorMsg} className="poll-form-row">
+                            help={this.state.Title.errorMsg} className="book-form-row">
                         <TextArea 
                             placeholder="Enter your Title"
                             style = {{ fontSize: '16px' }} 
@@ -195,7 +190,7 @@ class NewBook extends Component {
                             onChange = {this.handleTitleChange} />
                         </FormItem>
                         <FormItem 
-                            help={this.state.Content.errorMsg} className="poll-form-row">
+                            help={this.state.Content.errorMsg} className="book-form-row">
                            Insert Text
                         <SunEditor
                             onChange = {this.handleTextChange} />
@@ -213,7 +208,7 @@ class NewBook extends Component {
                     });
                     }}/>
                         </FormItem>
-                        <FormItem className="poll-form-row">
+                        <FormItem className="book-form-row">
                             <Button type="primary" 
                                 htmlType="submit" 
                                 size="large" 
