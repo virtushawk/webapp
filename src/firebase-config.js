@@ -5,7 +5,6 @@ var firebaseConfig = {
     apiKey: '<your-api-key>',
     authDomain: '<your-auth-domain>',
     databaseURL: '<your-database-url>',
-    storageBucket: 'gs://webapp-58cc8.appspot.com/'
   };
   firebase.initializeApp(firebaseConfig);
 
